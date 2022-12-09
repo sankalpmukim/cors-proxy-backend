@@ -2,14 +2,16 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const axios = require("axios");
+require("dotenv").config();
 const token = require("./token");
-// enable CORS
+// enable CORS for localhost:3000 and allow credentials
 app.use(cors());
+
 // set the port on which our app wil run
 // important to read from environment variable if deploying
 const port = process.env.PORT || 8000;
 
-const API_URL = `https://tmsstaging.indiahikes.com/tms-service`;
+const { API_URL } = process.env;
 
 // app.all(*) route that proxies requests to API_URL/* with the correct paramaters
 app.all("*", (req, res) => {
@@ -40,6 +42,7 @@ app.all("*", (req, res) => {
       .then((response) => {
         // if the request is successful, send the response back to the client
         res.send(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         // if the request fails, send the error back to the client
