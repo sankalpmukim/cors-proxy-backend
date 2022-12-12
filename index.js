@@ -46,6 +46,7 @@ app.all("*", (req, res) => {
       })
       .catch((error) => {
         // if the request fails, send the error back to the client
+        console.log(JSON.stringify(error, null, 4));
         res.send(error);
       });
   } catch (error) {
